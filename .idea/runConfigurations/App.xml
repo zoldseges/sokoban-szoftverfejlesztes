@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="App" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="io.github.zoldseges.App" />
+    <module name="sokoban" />
+    <option name="VM_PARAMETERS" value="--enable-native-access=javafx.graphics" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="io.github.zoldseges.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
