@@ -1,7 +1,7 @@
 package io.github.zoldseges.sokoban;
 
 public enum Cell {
-    VOID(Terrain.VOID, DynamicElement.NONE), //TODO: we might not even need this.
+    VOID(Terrain.VOID, DynamicElement.NONE),
     FLOOR(Terrain.FLOOR, DynamicElement.NONE),
     WALL(Terrain.WALL, DynamicElement.NONE),
     GOAL(Terrain.GOAL, DynamicElement.NONE),
