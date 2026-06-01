@@ -1,4 +1,4 @@
-package io.github.zoldseges.sokoban;
+package io.github.zoldseges.sokoban.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;

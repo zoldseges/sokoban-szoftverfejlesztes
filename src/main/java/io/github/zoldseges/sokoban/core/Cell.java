@@ -1,4 +1,4 @@
-package io.github.zoldseges.sokoban;
+package io.github.zoldseges.sokoban.core;
 
 public enum Cell {
     VOID(Terrain.VOID, DynamicElement.NONE),
@@ -17,7 +17,6 @@ public enum Cell {
         this.terrain = terrain;
         this.dynamicElement = dynamicElement;
     }
-
 
     boolean isBlocking() {
         return (this.terrain == Terrain.WALL

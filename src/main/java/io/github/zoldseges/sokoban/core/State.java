@@ -1,12 +1,16 @@
-package io.github.zoldseges.sokoban;
+package io.github.zoldseges.sokoban.core;
 
-public class Game {
+public class State {
     Grid grid;
     Pos playerPosition;
 
-    public Game(Level level) {
+    public State(Level level) {
         this.grid = level.copyGrid();
         this.playerPosition = level.playerStartPosition;
+    }
+
+    public Grid getGrid() {
+        return grid;
     }
 
     public boolean apply(Command command) {
