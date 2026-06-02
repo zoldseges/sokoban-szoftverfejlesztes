@@ -1,6 +1,4 @@
 module io.github.zoldseges {
-    requires static lombok;
-
     requires javafx.controls;
     requires javafx.fxml;
 
