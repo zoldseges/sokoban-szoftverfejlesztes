@@ -8,3 +8,11 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# CUSTOM
+# TODO: did this under time-pressure, might worth to reevalute
+#       things I'm not sure I wanted to initialize, but no time
+#       to fight intellij
+sokoban.iml
+markdown.xml
+modules.xml
