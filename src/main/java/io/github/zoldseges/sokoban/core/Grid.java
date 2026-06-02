@@ -57,6 +57,7 @@ public class Grid {
         }
     }
 
+    //NOTE: this is a SAM, it's needed so `forEach` can accept lambad as parameters
     @FunctionalInterface
     public interface CellVisitor {
         void visit(Pos pos, Cell cell);

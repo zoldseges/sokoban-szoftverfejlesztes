@@ -43,6 +43,11 @@ public class Level {
         return this.grid.copy();
     }
 
+    private Level(Grid grid, Pos playerStartPosition) {
+        this.grid = grid.copy();
+        this.playerStartPosition = playerStartPosition;
+    }
+
     public sealed interface Result permits
             Result.Ok,
             Result.Err {
@@ -61,10 +66,5 @@ public class Level {
                 List<Pos> boxPositions,
                 List<Pos> goalPositions)     implements Violation {}
         record NotEnclosed(List<Pos> gaps)   implements Violation {}
-    }
-
-    private Level(Grid grid, Pos playerStartPosition) {
-        this.grid = grid.copy();
-        this.playerStartPosition = playerStartPosition;
     }
 }

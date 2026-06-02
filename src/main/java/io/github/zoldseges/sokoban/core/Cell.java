@@ -1,5 +1,7 @@
 package io.github.zoldseges.sokoban.core;
 
+//IDEA: many methods and copy methods - like withBox(). It feels that it's more complicated then it should be.
+
 public enum Cell {
     VOID(Terrain.VOID, DynamicElement.NONE),
     FLOOR(Terrain.FLOOR, DynamicElement.NONE),
