@@ -1,0 +1,7 @@
+export PROJ_ROOT=$(realpath $(pwd))
+export PROJ_SRC="$PROJ_ROOT/src/main/java/io/github/zoldseges"
+export PROJ_RES="$PROJ_ROOT/src/main/resources/io/github/zoldseges"
+
+alias gosrc="cd $PROJ_SRC"
+alias gores="cd $PROJ_RES"
+alias goroot="cd $PROJ_ROOT"
