@@ -10,27 +10,35 @@ public class State {
         this.playerPosition = level.playerStartPosition;
     }
 
+    public Grid getGrid() {
+        return this.grid;
+    }
+
+    public Pos getPlayerPosition() {
+        return this.playerPosition;
+    }
+
     /** @return {@code true} if move could be applied */
     public boolean apply(Direction dir) {
         Pos landingPos = playerPosition.neighbour(dir);
-        Cell currentCell = this.grid.get(this.playerPosition);
-        Cell landingCell = this.grid.get(landingPos);
+        Cell currentCell = this.grid.getCell(this.playerPosition);
+        Cell landingCell = this.grid.getCell(landingPos);
 
         if (landingCell.isBlocking()) {
             return false;
         } else {
             if (landingCell.hasBox()) {
                 Pos beyondBoxPos = landingPos.neighbour(dir);
-                Cell beyondBoxCell = this.grid.get(beyondBoxPos);
+                Cell beyondBoxCell = this.grid.getCell(beyondBoxPos);
                 if (beyondBoxCell.isBlocking()
                         || beyondBoxCell.hasBox()) {
                     return false;
                 } else {
-                    this.grid.set(beyondBoxPos, beyondBoxCell.withBox());
+                    this.grid.setCell(beyondBoxPos, beyondBoxCell.withBox());
                 }
             }
-            this.grid.set(this.playerPosition, currentCell.withoutPlayerOrBox());
-            this.grid.set(landingPos, landingCell.withPlayer());
+            this.grid.setCell(this.playerPosition, currentCell.withoutPlayerOrBox());
+            this.grid.setCell(landingPos, landingCell.withPlayer());
             this.playerPosition = landingPos;
             return true;
         }
