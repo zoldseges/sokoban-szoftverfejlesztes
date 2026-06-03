@@ -3,7 +3,8 @@ package io.github.zoldseges.controller;
 import io.github.zoldseges.sokoban.GameSession;
 import io.github.zoldseges.sokoban.core.Direction;
 
-import io.github.zoldseges.view.GameRenderer;
+import io.github.zoldseges.sokoban.core.Grid;
+import io.github.zoldseges.view.GridRenderer;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class GameController {
         //      we just make it so that we get every unclaimed (not consumed) event bubbling up to / reaching _our_ scene.
         //      see more: https://docs.oracle.com/javase/8/javafx/events-tutorial/processing.htm#sthref13
         ObservableValue<Scene> sceneProperty = canvas.sceneProperty();
-        sceneProperty.addListener((obs, oldScene, newScene) -> {
+        sceneProperty.addListener((_, oldScene, newScene) -> {
             // detach the handler from the scene we are leaving
             if (oldScene != null) oldScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandlerReference);
             // attach the handler to the scene we are joining
@@ -41,7 +42,8 @@ public class GameController {
 
     public void setGameSession(GameSession gameSession) {
         this.gameSession = gameSession;
-        GameRenderer.renderState(this.canvas, gameSession.getGameState(), gameSession.getPlayerDirection());
+        Grid grid = gameSession.getGameState().getGrid();
+        GridRenderer.render(this.canvas, grid, gameSession.getPlayerDirection());
     }
 
     @FXML
@@ -50,8 +52,8 @@ public class GameController {
         if (cmd != null) {
             keyEvent.consume();
             this.gameSession.dispatchCommand(cmd);
-            GameRenderer.renderState(this.canvas,
-                    gameSession.getGameState(),
+            GridRenderer.render(this.canvas,
+                    gameSession.getGameState().getGrid(),
                     gameSession.getPlayerDirection()
             );
         }

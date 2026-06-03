@@ -9,10 +9,9 @@ import javafx.scene.image.Image;
 import java.util.List;
 import java.util.Objects;
 
-public class GameRenderer {
-    public static void renderState(Canvas canvas, State state, Direction playerDirection) {
+public class GridRenderer {
+    public static void render(Canvas canvas, Grid grid, Direction playerDirection) {
         GraphicsContext ctx = canvas.getGraphicsContext2D();
-        Grid grid = state.getGrid();
         // TODO: might cause visual artifacts
         // ctx.setImageSmoothing(false);
 
@@ -109,7 +108,7 @@ public class GameRenderer {
 
         private static final Image ATLAS = new Image(
                 Objects.requireNonNull(
-                        GameRenderer.class.getResource("tilesheet.png"),
+                        GridRenderer.class.getResource("tilesheet.png"),
                         "Habibi, can't find the tilesheet asset."
                 ).toExternalForm()
         );
