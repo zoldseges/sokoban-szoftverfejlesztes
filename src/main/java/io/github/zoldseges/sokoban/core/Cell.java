@@ -1,4 +1,6 @@
-package io.github.zoldseges.sokoban;
+package io.github.zoldseges.sokoban.core;
+
+//IDEA: many methods and copy methods - like withBox(). It feels that it's more complicated then it should be.
 
 public enum Cell {
     VOID(Terrain.VOID, DynamicElement.NONE),
@@ -17,7 +19,6 @@ public enum Cell {
         this.terrain = terrain;
         this.dynamicElement = dynamicElement;
     }
-
 
     boolean isBlocking() {
         return (this.terrain == Terrain.WALL
