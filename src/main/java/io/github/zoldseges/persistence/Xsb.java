@@ -4,11 +4,14 @@ import io.github.zoldseges.sokoban.core.Cell;
 import io.github.zoldseges.sokoban.core.Grid;
 import io.github.zoldseges.sokoban.core.Pos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 // xsb format: http://sokoban.org/about_sokoban.php
-class Xsb {
+public class Xsb {
 
+    //TODO: for sure there's a better way to do the mapping Cell-to-char and back
     private static Cell cellFrom(char chr) {
         return switch (chr) {
             case '#' -> Cell.WALL;
@@ -24,7 +27,23 @@ class Xsb {
         };
     }
 
-    static Grid.Result gridFrom(String text) {
+    private static char charFrom(Cell cell) {
+        return switch (cell) {
+            case Cell.WALL: yield '#';
+            case Cell.PLAYER: yield '@';
+            case Cell.PLAYER_ON_GOAL: yield '+';
+            case Cell.BOX: yield '$';
+            case Cell.BOX_ON_GOAL: yield '*';
+            case Cell.GOAL: yield '.';
+            case Cell.FLOOR:
+            case Cell.VOID: {
+                yield '_';
+            }
+        };
+    }
+
+    //TODO: trim left and right
+    public static Grid.Result gridFrom(String text) {
         String[] textRows = text.lines().toArray(String[]::new);
         int height = textRows.length;
         int width = Arrays.stream(textRows)
@@ -47,5 +66,19 @@ class Xsb {
                 yield ok;
             }
         };
+    }
+
+    static List<String> strListFrom(Grid grid) {
+        int colCount = grid.getCols();
+        List<String> result = new ArrayList<>();
+        StringBuilder resultRow = new StringBuilder();
+        grid.forEach((Pos pos, Cell cell) -> {
+            resultRow.append(charFrom(cell));
+            if (pos.x() == colCount - 1) {
+                result.add(resultRow.toString());
+                resultRow.setLength(0);
+            }
+        });
+        return result;
     }
 }

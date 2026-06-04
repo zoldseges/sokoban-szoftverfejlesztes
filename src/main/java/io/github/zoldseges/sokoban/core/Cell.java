@@ -74,9 +74,7 @@ public enum Cell {
                 }
             };
         } else {
-            throw new IllegalStateException(
-                    "no Cell for (%s, %s)".formatted(this.terrain, dynamicElement)
-            );
+            throw new IllegalStateException("No Cell for (" + this.terrain + ", " + dynamicElement + ")");
         }
     }
 

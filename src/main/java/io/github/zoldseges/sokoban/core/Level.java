@@ -56,15 +56,22 @@ public class Level {
     }
 
     public sealed interface Violation permits
+            //TODO: enclosement check
+            //Violation.NotEnclosed,
             Violation.NoPlayer,
             Violation.MultiplePlayers,
-            Violation.GoalBoxMismatch,
-            Violation.NotEnclosed {
-        record NoPlayer()                    implements Violation {}
-        record MultiplePlayers(List<Pos> at) implements Violation {}
+            Violation.GoalBoxMismatch {
+        record NoPlayer()
+                implements Violation {}
+
+        record MultiplePlayers(
+                List<Pos> playerPositions
+        ) implements Violation {}
+
         record GoalBoxMismatch(
                 List<Pos> boxPositions,
-                List<Pos> goalPositions)     implements Violation {}
-        record NotEnclosed(List<Pos> gaps)   implements Violation {}
+                List<Pos> goalPositions
+        ) implements Violation {}
+        // record NotEnclosed(List<Pos> gaps)   implements Violation {}
     }
 }

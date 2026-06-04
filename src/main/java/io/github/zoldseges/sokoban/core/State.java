@@ -18,6 +18,17 @@ public class State {
         return this.playerPosition;
     }
 
+    boolean isWon() {
+        for (int y = 0; y < grid.getRows(); ++y) {
+            for (int x = 0; x < grid.getCols(); ++x) {
+                if (grid.getCell(new Pos(x, y)) == Cell.BOX) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     /** @return {@code true} if move could be applied */
     public boolean apply(Direction dir) {
         Pos landingPos = playerPosition.neighbour(dir);

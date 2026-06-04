@@ -10,13 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 public class Navigator {
 
     private final Scene scene;
+    private final LevelLibrary levelLibrary;
 
-    public Navigator() {
+    public Navigator(LevelLibrary levelLibrary) {
         this.scene = new Scene(new Pane());
+        this.levelLibrary = levelLibrary;
         this.toLevelLibrary();
     }
 
@@ -25,7 +28,7 @@ public class Navigator {
     }
 
     public void toLevelLibrary() {
-        swap("level-library.fxml", new LevelLibraryController(this));
+        swap("level-library.fxml", new LevelLibraryController(this, this.levelLibrary));
     }
 
     public void toGame(Level level) {
@@ -39,7 +42,7 @@ public class Navigator {
             Parent root = loader.load();
             scene.setRoot(root);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load %s:%s%n".formatted(fxmlFilename, e));
+            throw new UncheckedIOException("Failed to load: " + fxmlFilename, e);
         }
     }
 }

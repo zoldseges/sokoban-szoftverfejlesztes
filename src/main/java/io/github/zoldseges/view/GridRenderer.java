@@ -9,10 +9,11 @@ import javafx.scene.image.Image;
 import java.util.List;
 import java.util.Objects;
 
+// TODO: screen zoom + screen move for big maps
 public class GridRenderer {
     public static void render(Canvas canvas, Grid grid, Direction playerDirection) {
         GraphicsContext ctx = canvas.getGraphicsContext2D();
-        // TODO: might cause visual artifacts
+        // NOTE: not sure what it does, might worth a try flipping it if you see visual artifacts
         // ctx.setImageSmoothing(false);
 
         double canvasWidth = canvas.getWidth();
@@ -20,7 +21,8 @@ public class GridRenderer {
         double gridCols = grid.getCols();
         double gridRows = grid.getRows();
 
-        double canvasTileSize = Math.floor( // needed for double-int casting
+        // NOTE: there were some artifacts on tile borders. It had something to do with
+        double canvasTileSize = Math.floor(
             Math.min((canvasWidth / gridCols),
                     (canvasHeight / gridRows)
             )

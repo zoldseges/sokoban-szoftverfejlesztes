@@ -15,9 +15,8 @@
             prefWidth="960" prefHeight="720">
     <top>
         <ToolBar>
-            <Button text="Import .xsb..."/>
+            <Button text="Import .xsb" onAction="#onXsbImport"/>
             <Separator/>
-            <Button text="Open library..."/>
             <Label fx:id="libPathLabel" text="(no library open)"/>
             <Separator/>
         </ToolBar>
@@ -28,13 +27,13 @@
             <ListView fx:id="levelList" VBox.vgrow="ALWAYS"/>
             <HBox>
                 <Button text="Play" onAction="#onPlay"/>
-                <Button text="Delete"/>
+                <Button text="Delete" onAction="#onDelete"/>
             </HBox>
         </VBox>
     </left>
     <center>
         <StackPane>
-            <Canvas fx:id="preview" width="800" height="600"/>
+            <Canvas fx:id="previewCanvas" width="800" height="600"/>
         </StackPane>
     </center>
 </BorderPane>

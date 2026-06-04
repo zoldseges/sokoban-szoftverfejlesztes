@@ -13,8 +13,6 @@ public class GameSession {
 
     private final List<Command.Move> gameMoveHistory = new java.util.ArrayList<>();
 
-    //IDEA: we might need to derive from `Level` later on the `storage` persistence layer so we can associate attributes
-    //      associated with a level - e.g. ID, best-score, or _maybe even_ (smells bad, but) unfinished sessions!
     public GameSession(Level level) {
         this.level = level;
         this.gameState = new State(level);
