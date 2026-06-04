@@ -1,10 +1,12 @@
 package io.github.zoldseges.controller;
 
+import io.github.zoldseges.Navigator;
 import io.github.zoldseges.sokoban.GameSession;
 import io.github.zoldseges.sokoban.core.Direction;
-
 import io.github.zoldseges.sokoban.core.Grid;
+import io.github.zoldseges.sokoban.core.Level;
 import io.github.zoldseges.view.GridRenderer;
+
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 
 public class GameController {
 
+    private final Navigator navigator;
     private GameSession gameSession;
 
     //NOTE: we need to capture _one_ handler instance.
@@ -38,24 +41,31 @@ public class GameController {
             // attach the handler to the scene we are joining
             if (newScene != null) newScene.addEventHandler(KeyEvent.KEY_PRESSED, keyHandlerReference);
         });
-    }
 
-    public void setGameSession(GameSession gameSession) {
-        this.gameSession = gameSession;
         Grid grid = gameSession.getGameState().getGrid();
         GridRenderer.render(this.canvas, grid, gameSession.getPlayerDirection());
     }
 
+    public GameController(Navigator navigator, Level level) {
+        this.navigator = navigator;
+        this.gameSession = new GameSession(level);
+    }
+
     @FXML
     public void keyEventHandler(KeyEvent keyEvent) {
-        GameSession.Command cmd = commandFor(keyEvent.getCode());
-        if (cmd != null) {
+        if (keyEvent.getCode() == KeyCode.ESCAPE) {
+            navigator.toLevelLibrary();
             keyEvent.consume();
-            this.gameSession.dispatchCommand(cmd);
-            GridRenderer.render(this.canvas,
-                    gameSession.getGameState().getGrid(),
-                    gameSession.getPlayerDirection()
-            );
+        } else {
+            GameSession.Command cmd = commandFor(keyEvent.getCode());
+            if (cmd != null) {
+                keyEvent.consume();
+                this.gameSession.dispatchCommand(cmd);
+                GridRenderer.render(this.canvas,
+                        gameSession.getGameState().getGrid(),
+                        gameSession.getPlayerDirection()
+                );
+            }
         }
     }
 

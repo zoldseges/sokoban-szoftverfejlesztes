@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.canvas.Canvas?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="960" prefHeight="720">
+    <left>
+        <VBox spacing="6" prefWidth="180">
+            <Separator/>
+            <Label text="Movement:"/>
+            <Separator/>
+            <Label text="W / UP"/>
+            <Label text="S / DOWN"/>
+            <Label text="A / LEFT"/>
+            <Label text="D / RIGHT"/>
+            <Separator/>
+            <Label text="Other:"/>
+            <Separator/>
+            <Label text="&lt;Esc&gt; - back to library"/>
+        </VBox>
+    </left>
+    <center>
+        <StackPane>
+            <Canvas fx:id="canvas" width="800" height="600"/>
+        </StackPane>
+    </center>
+</BorderPane>
