@@ -3,6 +3,8 @@ module io.github.zoldseges {
     requires javafx.fxml;
     requires java.desktop;
 
+    requires com.fasterxml.jackson.databind;
+
     exports io.github.zoldseges;
     exports io.github.zoldseges.controller;
 
