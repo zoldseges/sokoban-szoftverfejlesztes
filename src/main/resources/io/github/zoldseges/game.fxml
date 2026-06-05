@@ -26,17 +26,28 @@
     </left>
     <center>
         <StackPane>
-            <Canvas fx:id="canvas" height="600" width="800"/>
-            <Label fx:id="wonOverlay" alignment="CENTER" contentDisplay="CENTER"
-                   minHeight="240.0" minWidth="300.0"
-                   style="-fx-background-color: rgb(112, 112, 37, 0.9);"
-                   text="You Won!"
-                   textAlignment="CENTER" StackPane.alignment="CENTER"
-                   visible="false">
-                <font>
-                    <Font size="27.0"/>
-                </font>
-            </Label>
+            <Canvas fx:id="canvas" height="600" width="800" />
+            <VBox fx:id="wonOverlay"
+                  alignment="CENTER"
+                  maxHeight="240.0"
+                  maxWidth="300.0"
+                  style="-fx-background-color: rgba(73, 73, 63, 0.9);"
+                  visible="false">
+                <Label text="You Won!"
+                       alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER"
+                       textFill="#4abc2b">
+                    <font>
+                        <Font size="27.0" />
+                    </font>
+                </Label>
+                <Label text="Press &lt;Esc&gt; to go back"
+                       alignment="CENTER" textAlignment="CENTER" contentDisplay="CENTER"
+                       textFill="#4abc2b">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+            </VBox>
         </StackPane>
     </center>
 </BorderPane>

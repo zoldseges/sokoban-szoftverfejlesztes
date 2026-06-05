@@ -16,6 +16,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 
 public class GameController {
 
@@ -30,7 +31,7 @@ public class GameController {
     @FXML
     private Canvas canvas;
     @FXML
-    private Label wonOverlay;
+    private VBox wonOverlay;
 
     @FXML
     private void initialize() {
