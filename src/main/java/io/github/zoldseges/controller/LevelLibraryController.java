@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -83,6 +85,16 @@ public class LevelLibraryController {
         if (entry != null) {
             navigator.toGame(entry.level());
         }
+    }
+
+    @FXML
+    private void onListViewKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            onPlay();
+        } else if (keyEvent.getCode() == KeyCode.DELETE) {
+            onDelete();
+        }
+        keyEvent.consume();
     }
 
     @FXML

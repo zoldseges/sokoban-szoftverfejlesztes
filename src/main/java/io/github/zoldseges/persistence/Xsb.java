@@ -68,7 +68,7 @@ public class Xsb {
         };
     }
 
-    static List<String> strListFrom(Grid grid) {
+    public static List<String> strListFrom(Grid grid) {
         int colCount = grid.getCols();
         List<String> result = new ArrayList<>();
         StringBuilder resultRow = new StringBuilder();
