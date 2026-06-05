@@ -24,7 +24,8 @@
     <left>
         <VBox prefWidth="120">
             <Label text="Levels"/>
-            <ListView fx:id="levelList" VBox.vgrow="ALWAYS"/>
+            <ListView fx:id="levelList" VBox.vgrow="ALWAYS"
+                        onKeyPressed="#onListViewKeyPressed"/>
             <HBox>
                 <Button text="Play" onAction="#onPlay"/>
                 <Button text="Delete" onAction="#onDelete"/>
