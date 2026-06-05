@@ -36,6 +36,7 @@ public class Navigator {
     }
 
     private void swap(String fxmlFilename, Object controller) {
+        //TODO: could be cached at Navigator instantiation
         FXMLLoader loader = new FXMLLoader(Navigator.class.getResource(fxmlFilename));
         loader.setController(controller);
         try {

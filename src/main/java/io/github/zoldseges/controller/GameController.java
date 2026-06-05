@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -20,6 +21,7 @@ public class GameController {
 
     private final Navigator navigator;
     private GameSession gameSession;
+    private boolean isWon;
 
     //NOTE: we need to capture _one_ handler instance.
     //      multiple `this::keyEventHandler` expressions are likely to resolve to different instances
@@ -27,6 +29,8 @@ public class GameController {
 
     @FXML
     private Canvas canvas;
+    @FXML
+    private Label wonOverlay;
 
     @FXML
     private void initialize() {
@@ -49,23 +53,29 @@ public class GameController {
     public GameController(Navigator navigator, Level level) {
         this.navigator = navigator;
         this.gameSession = new GameSession(level);
+        if (this.gameSession.getGameState().isWon()) {
+            this.handleWin();
+        };
     }
 
     @FXML
     public void keyEventHandler(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
-            navigator.toLevelLibrary();
+            this.navigator.toLevelLibrary();
             keyEvent.consume();
-        } else {
+        } else if (!(this.isWon)) {
             GameSession.Command cmd = commandFor(keyEvent.getCode());
             if (cmd != null) {
                 keyEvent.consume();
                 this.gameSession.dispatchCommand(cmd);
                 GridRenderer.render(this.canvas,
-                        gameSession.getGameState().getGrid(),
-                        gameSession.getPlayerDirection()
+                        this.gameSession.getGameState().getGrid(),
+                        this.gameSession.getPlayerDirection()
                 );
             }
+        }
+        if (this.gameSession.getGameState().isWon()) {
+            this.handleWin();
         }
     }
 
@@ -77,5 +87,10 @@ public class GameController {
             case RIGHT, D -> new GameSession.Command.Move(Direction.RIGHT);
             default -> null;
         };
+    }
+
+    private void handleWin() {
+        this.isWon = true;
+        this.wonOverlay.setVisible(true);
     }
 }

@@ -18,7 +18,7 @@ public class State {
         return this.playerPosition;
     }
 
-    boolean isWon() {
+    public boolean isWon() {
         for (int y = 0; y < grid.getRows(); ++y) {
             for (int x = 0; x < grid.getCols(); ++x) {
                 if (grid.getCell(new Pos(x, y)) == Cell.BOX) {

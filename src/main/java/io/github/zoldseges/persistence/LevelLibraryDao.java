@@ -54,8 +54,4 @@ public final class LevelLibraryDao {
         if (parentPath != null) Files.createDirectories(parentPath);
         OBJECT_MAPPER.writer().writeValue(path.toFile(), new LevelLibraryFile(storedLevels));
     }
-
-    public static void save(Path path) throws IOException {
-        LevelLibraryDao.save(path, new ArrayList<>());
-    }
 }
