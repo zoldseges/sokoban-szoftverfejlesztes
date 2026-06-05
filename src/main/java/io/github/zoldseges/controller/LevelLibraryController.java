@@ -136,7 +136,20 @@ public class LevelLibraryController {
         parseXsbStage(xsbText, fileName);
     }
 
+    //FIXME: quickfix before midnight: duplicate entries
     private void addToLibrary(LevelLibraryEntry entry) {
+        LevelLibraryEntry duplicateEntry = null;
+        for (LevelLibraryEntry iterEntry : this.levelLibrary.getEntries()) {
+            if (iterEntry.name().equals(entry.name())) {
+                duplicateEntry = iterEntry;
+                break;
+            }
+        }
+        if (duplicateEntry != null) {
+            this.levelList.getSelectionModel().select(duplicateEntry);
+            return;
+        }
+        // FIXME: quicfix end
         try {
             this.levelLibrary.addEntry(entry);
             this.levelList.getSelectionModel().select(entry);
