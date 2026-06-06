@@ -34,7 +34,8 @@
     </left>
     <center>
         <StackPane>
-            <Canvas fx:id="previewCanvas" height="800" width="600" />
+<!--            TODO: this is a hacky      -->
+            <Canvas fx:id="previewCanvas" height="600" width="600" />
             <VBox fx:id="gridErrorOverlay"
                   alignment="CENTER"
                   maxHeight="240.0"
