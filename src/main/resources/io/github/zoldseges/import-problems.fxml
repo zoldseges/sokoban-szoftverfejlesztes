@@ -18,7 +18,7 @@
     <top>
         <ToolBar>
             <Separator/>
-            <Label fx:id="filePathLabel" text=""/>
+            <Label fx:id="filePathLabel"/>
             <Separator/>
         </ToolBar>
     </top>
@@ -27,11 +27,15 @@
             <Label text="Problems:"/>
             <ListView fx:id="problemListView" VBox.vgrow="ALWAYS"
                 onKeyPressed="#onListViewKeyPressed"/>
-            <HBox>
-                <Button text="Back" onAction="#onBack"/>
-            </HBox>
         </VBox>
     </left>
+    <bottom>
+        <HBox>
+            <Button text="Back" onAction="#onBack"/>
+            <Separator/>it
+            <Label text="press &lt;Esc&gt; to go back"/>
+        </HBox>
+    </bottom>
     <center>
         <StackPane>
 <!--            TODO: this is a hacky      -->

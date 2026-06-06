@@ -69,8 +69,8 @@ public class ImportProblemsController {
                 showGridProblem(gridV.violations());
             case ImportProblem.LevelProblems levelV ->
                 showAllLevelProblems(levelV.grid(), levelV.violations());
-
         }
+        filePathLabel.setText(absolutePath);
         Platform.runLater(problemListView::requestFocus);
     }
 
