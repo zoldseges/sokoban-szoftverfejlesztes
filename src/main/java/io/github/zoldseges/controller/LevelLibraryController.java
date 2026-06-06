@@ -26,6 +26,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +126,6 @@ public class LevelLibraryController {
         File file = fileChooser.showOpenDialog(navigator.getScene().getWindow());
         if (file == null) return;
 
-        String fileName = file.getName();
         String xsbText;
         try {
             xsbText = Files.readString(file.toPath());
@@ -133,7 +133,7 @@ public class LevelLibraryController {
             handleIOException(e);
             return;
         }
-        parseXsbStage(xsbText, fileName);
+        parseXsbStage(xsbText, file.toPath());
     }
 
     //FIXME: quickfix before midnight: duplicate entries
@@ -158,19 +158,27 @@ public class LevelLibraryController {
         }
     }
 
-    private void parseXsbStage(String xsbText, String fileName) {
+    private void parseXsbStage(String xsbText, Path filePath) {
         switch (Xsb.gridFrom(xsbText)) {
-            case Grid.Result.Err err -> reportGridErrors(fileName, err.violations());
-            case Grid.Result.Ok ok -> validateStage(fileName, ok.grid());
+            case Grid.Result.Err err ->
+                    navigator.toImportProblems(
+                        filePath, new ImportProblem.GridProblems(err.violations())
+                    );
+            case Grid.Result.Ok ok -> validateStage(filePath, ok.grid());
         };
     }
 
-    private void validateStage(String fileName, Grid grid) {
+    private void validateStage(Path filePath, Grid grid) {
         switch (Level.from(grid)) {
-            case Level.Result.Err err -> reportLevelErrors(fileName, err.violations());
+            case Level.Result.Err err ->
+                    navigator.toImportProblems(
+                            filePath, new ImportProblem.LevelProblems(grid, err.violations())
+                    );
             case Level.Result.Ok ok   ->
                     this.addToLibrary(
-                            new LevelLibraryEntry(fileName, ok.level())
+                            new LevelLibraryEntry(
+                                    filePath.getFileName().toString(), ok.level()
+                            )
                     );
         }
     }

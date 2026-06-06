@@ -26,7 +26,7 @@
     </left>
     <center>
         <StackPane>
-            <Canvas fx:id="canvas" height="600" width="800" />
+            <Canvas fx:id="canvas" height="800" width="600" />
             <VBox fx:id="wonOverlay"
                   alignment="CENTER"
                   maxHeight="240.0"

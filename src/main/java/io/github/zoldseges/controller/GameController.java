@@ -33,6 +33,14 @@ public class GameController {
     @FXML
     private VBox wonOverlay;
 
+    public GameController(Navigator navigator, Level level) {
+        this.navigator = navigator;
+        this.gameSession = new GameSession(level);
+        if (this.gameSession.getGameState().isWon()) {
+            this.handleWin();
+        };
+    }
+
     @FXML
     private void initialize() {
         //NOTE: Events go from scene to leaf _in focus_ then back to the scene. EventHandlers fire on the way back.
@@ -40,6 +48,7 @@ public class GameController {
         //      we just make it so that we get every unclaimed (not consumed) event bubbling up to / reaching _our_ scene.
         //      see more: https://docs.oracle.com/javase/8/javafx/events-tutorial/processing.htm#sthref13
         ObservableValue<Scene> sceneProperty = canvas.sceneProperty();
+        //NOTE: it's overkill atm, but as soon as we put anything which has default key handling, we would be in trouble
         sceneProperty.addListener((_, oldScene, newScene) -> {
             // detach the handler from the scene we are leaving
             if (oldScene != null) oldScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandlerReference);
@@ -49,14 +58,6 @@ public class GameController {
 
         Grid grid = gameSession.getGameState().getGrid();
         GridRenderer.render(this.canvas, grid, gameSession.getPlayerDirection());
-    }
-
-    public GameController(Navigator navigator, Level level) {
-        this.navigator = navigator;
-        this.gameSession = new GameSession(level);
-        if (this.gameSession.getGameState().isWon()) {
-            this.handleWin();
-        };
     }
 
     @FXML

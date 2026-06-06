@@ -17,6 +17,7 @@
         <ToolBar>
             <Button text="Import .xsb" onAction="#onXsbImport"/>
             <Separator/>
+<!--            TODO: set label to the current library path-->
             <Label fx:id="libPathLabel" text="(no library open)"/>
             <Separator/>
         </ToolBar>

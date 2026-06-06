@@ -5,6 +5,7 @@ import io.github.zoldseges.sokoban.core.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,13 +22,15 @@ public class GridRenderer {
         double gridCols = grid.getCols();
         double gridRows = grid.getRows();
 
-        // NOTE: there were some artifacts on tile borders. It had something to do with
+        // NOTE: there were some artifacts on tile borders.
+        //  It had something to do with pixel represented as doubles i guess
         double canvasTileSize = Math.floor(
             Math.min((canvasWidth / gridCols),
                     (canvasHeight / gridRows)
             )
         );
 
+        //NOTE: centering
         double canvasOriginOfsX = Math.floor((canvasWidth - (gridCols * canvasTileSize)) / 2);
         double canvasOriginOfsY = Math.floor((canvasHeight - (gridRows * canvasTileSize)) / 2);
 
@@ -46,6 +49,39 @@ public class GridRenderer {
                 );
             }
         });
+    }
+
+    //TODO: shares lot of coude with the full canvas render method, might need refactor
+    public static void highlight(Canvas canvas, Grid grid, List<Pos> positions, Color color) {
+        double border_px = 10.0;
+        GraphicsContext ctx = canvas.getGraphicsContext2D();
+
+        double canvasWidth = canvas.getWidth();
+        double canvasHeight = canvas.getHeight();
+        double gridCols = grid.getCols();
+        double gridRows = grid.getRows();
+
+        double canvasTileSize = Math.floor(
+                Math.min((canvasWidth / gridCols),
+                        (canvasHeight / gridRows)
+                )
+        );
+
+        double canvasOriginOfsX = Math.floor((canvasWidth - (gridCols * canvasTileSize)) / 2);
+        double canvasOriginOfsY = Math.floor((canvasHeight - (gridRows * canvasTileSize)) / 2);
+
+        ctx.setFill(color);
+        ctx.setStroke(color);
+        //NOTE: draws border: makes highlight bigger then actual tile.
+        ctx.setLineWidth(border_px);
+
+        for (Pos pos : positions) {
+            double x = canvasOriginOfsX + (pos.x() * canvasTileSize);
+            double y = canvasOriginOfsY + (pos.y() * canvasTileSize);
+
+            ctx.fillRect(x, y, canvasTileSize, canvasTileSize);
+            ctx.strokeRect(x, y, canvasTileSize, canvasTileSize);
+        }
     }
 
     private static List<Tile> getTilesFor(Cell cell, Direction playerDir) {

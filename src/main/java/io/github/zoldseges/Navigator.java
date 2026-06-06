@@ -1,7 +1,10 @@
 package io.github.zoldseges;
 
 import io.github.zoldseges.controller.GameController;
+import io.github.zoldseges.controller.ImportProblem;
+import io.github.zoldseges.controller.ImportProblemsController;
 import io.github.zoldseges.controller.LevelLibraryController;
+
 import io.github.zoldseges.sokoban.core.Level;
 
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.file.Path;
 
 public class Navigator {
 
@@ -33,6 +37,10 @@ public class Navigator {
 
     public void toGame(Level level) {
         swap("game.fxml", new GameController(this, level));
+    }
+
+    public void toImportProblems(Path filePath, ImportProblem importProblem) {
+        swap("import-problems.fxml", new ImportProblemsController(this, filePath, importProblem));
     }
 
     private void swap(String fxmlFilename, Object controller) {

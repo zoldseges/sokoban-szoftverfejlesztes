@@ -6,6 +6,12 @@ import io.github.zoldseges.sokoban.core.Level;
 
 import java.util.List;
 
+//TODO:
+//  - UNITTESTING:
+//    - Implement undo -> gives you move records
+//    - I'm plement resume play -> persistent game session
+//    => you just have to play, and if you find something weird,
+//       just grab the persistent game session and test against that
 public class GameSession {
     private final Level level;
     private final State gameState;
