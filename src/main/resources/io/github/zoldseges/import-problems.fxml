@@ -27,10 +27,10 @@
             <Label text="Problems:"/>
             <ListView fx:id="problemListView" VBox.vgrow="ALWAYS"
                 onKeyPressed="#onListViewKeyPressed"/>
+            <HBox>
+                <Button text="Back" onAction="#onBack"/>
+            </HBox>
         </VBox>
-        <HBox>
-            <Button text="Back" onAction="#onBack"/>
-        </HBox>
     </left>
     <center>
         <StackPane>

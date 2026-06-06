@@ -65,16 +65,11 @@ public class ImportProblemsController {
     @FXML
     private void initialize() {
         switch (this.importProblem) {
-            case ImportProblem.GridProblems gridV -> {
-                if (gridV.violations().size() > 1) {
-                    throw new IllegalStateException("Not implemented - consider refactoring core.violations");
-                }
-                showGridProblem(gridV.violations().getFirst());
-            }
-
-            case ImportProblem.LevelProblems levelV -> {
+            case ImportProblem.GridProblems gridV ->
+                showGridProblem(gridV.violations());
+            case ImportProblem.LevelProblems levelV ->
                 showAllLevelProblems(levelV.grid(), levelV.violations());
-            }
+
         }
         Platform.runLater(problemListView::requestFocus);
     }
@@ -87,8 +82,8 @@ public class ImportProblemsController {
         }
     }
 
-    private void showGridProblem(Grid.Violation gridViolation) {
-        this.gridErrorOverlayLabel.setText(ViolationText.forGrid(gridViolation));
+    private void showGridProblem(List<Grid.Violation> gridViolations) {
+        this.gridErrorOverlayLabel.setText(ViolationText.forGrid(gridViolations));
         gridErrorOverlay.setVisible(true);
     }
 
@@ -178,13 +173,19 @@ public class ImportProblemsController {
 
         private ViolationText() {}
 
-        static String forGrid(Grid.Violation gridViolation) {
-                String prefix = "Could not load, invalid grid:\n  ";
-                String suffix = switch (gridViolation) {
-                    case Grid.Violation.WidthZeroOrLess width   -> "Invalid width: " + width.width();
-                    case Grid.Violation.HeightZeroOrLess height -> "Invalid height: " + height.height();
-                };
-                return prefix + suffix;
+        static String forGrid(List<Grid.Violation> gridViolations) {
+                StringBuilder sb = new StringBuilder("Could not load, invalid grid:");
+                for (Grid.Violation gridViolation : gridViolations) {
+                    sb.append(switch (gridViolation) {
+                        case Grid.Violation.WidthZeroOrLess width: {
+                            yield "\n  Invalid width: " + width.width();
+                        }
+                        case Grid.Violation.HeightZeroOrLess height: {
+                            yield "\n  Invalid height: " + height.height();
+                        }
+                    });
+                }
+                return sb.toString();
         }
 
         static String forLevelViolation(Level.Violation levelViolation) {
